@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharma Compare</title>
+</head>
+<body>
+    <header class="cabeçalho">
+        <!-- Simbolo -->
+         <div class="cab">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 262 52" width="262" height="52"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1FBF84"/><stop offset="1" stop-color="#0B5D49"/></linearGradient></defs><g transform="translate(2 4) scale(.9)"><path d="M18 2h12a4 4 0 0 1 4 4v10h10a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H34v10a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V32H4a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h10V6a4 4 0 0 1 4-4z" fill="url(#g)"/><path d="M14 30c6-1 8-6 12-12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></g><text x="52" y="26" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#0B5D49">PharmaCompare</text><text x="53" y="42" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="10" fill="#4B5563">Mais saúde, menos gastos</text></svg>
+         </div>
+        <!-- Botões para abrir o menu -->
+        
+        <button class="btn" id="btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="menu-tel">
+            
+            <!-- Botão fechar o menu -->
+            <button class="btnclose">Fecha <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg></button>
+
+            <!-- NavBar -->
+            <nav class="links">
+                <a href="index.html">Início</a>
+                <a href="medicamentos.html">Produtos</a>
+                <a href="farmacias.html">Farmácias</a>
+                <a href="ofertas.html">Ofertas</a>
+                <a href="saude.html">Saúde</a>
+                <a href="ajuda.html">Ajuda</a>
+            </nav>
+
+            <!-- Icones -->
+            <div class="icones">
+                <button class="ico-pesq" id="ico-pesq">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx='11' cy='11' r='7'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>
+                </button>
+                <a href="conta.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d='M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z'/></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>
+                </a>
+                <a href="registrar.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/><circle cx='12' cy='7' r='4'/></svg>
+                </a>
+                <a href="#" class="entrar">Entrar/Registrar</a>
+            </div>
+        </div>
+    </header>
+    <section class="med-informações">
+        <div class="navegador">
+            <a href="index.html">ínicio</a>
+            <span>/</span>
+            <p>Medicamentos</p>
+        </div>
+        <div class="page-medi">
+            <div class="titulo">
+                <h2>Medicamentos</h2>
+                <p>Mais de 10.000 produtos de farmacias em luanda e todo país.</p>
+            </div>
+            <div class="pesq-medi">
+                <label for="pesq"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#1F2A44"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></g></svg></label>
+                <input type="text" name="pesq" id="pesq" placeholder="Pesquisar Medicamentos ou Sintómas">
+                <button>Buscar</button>
+            </div>
+        </div>
+        <div class="categoria">
+            <a href="#">Todos</a>
+            <a href="#">Dor e Febre</a>
+            <a href="#">constipação</a>
+            <a href="#">Malária</a>
+            <a href="#">Estômago</a>
+            <a href="#">Alétgias</a>
+            <a href="#">Pelé</a>
+            <a href="#">Diabetes</a>
+        </div>
+    </section>
+    <div class="fil-ord">
+        <button id="filtros-med">Filtros-med</button>
+        <div class="ordenar">
+            <select name="ordenar" id="ordenar">
+                <option value="Menor">Menor Preço</option>
+                <option value="Médio">Médio Preço</option>
+                <option value="Maior">Maior Preço</option>
+            </select>
+        </div>
+    </div>
+    <div class="conteudo">
+        <aside>
+            <div class="titulo">
+                <h2>Filtro</h2>
+                <button id="limpar-filtro">Limpar</button>
+            </div>
+            <div class="cate-de-medi">
+                <h3>Categória</h3>
+                <label><div><input type="checkbox" checked>Tudo<span>1215</span></div></label>
+                <label><div><input type="checkbox">Medicamentos<span>320</span></div></label>
+                <label><div><input type="checkbox">Mãe & Bebé<span>180</span></div></label>
+                <label><div><input type="checkbox">Beleza<span>210</span></div></label>
+                <label><div><input type="checkbox">Suplementos<span>95</span></div></label>
+                <label><div><input type="checkbox">Equipamentos<span>410</span></div></label>
+            </div>
+            <div class="preço">
+                <h3>Preço (kz)</h3>
+                <input type="range" min="500" max="15000">
+                <div class="valores">
+                    <span>500 Kz</span>
+                    <span>15000 Kz</span>
+                </div>
+            </div>
+            <div class="farmacias">
+                <h3>Farmácias</h3>
+                <label><input type="checkbox">Farmácia Vida+<span>120</span></label>
+                <label><input type="checkbox">Maianga Saúde<span>98</span></label>
+                <label><input type="checkbox">Kilamba Central<span>76</span></label>
+                <label><input type="checkbox">Alvalade<span></span>64</label>
+            </div>
+            <div class="tipo">
+                <h3>Tipo</h3>
+                <label><input type="checkbox" checked>Sem receita<span>860</span></label>
+                <label><input type="checkbox">Com receita<span>340</span></label>
+                <label><input type="checkbox">Genêrico<span>520</span></label>
+            </div>
+        </aside>
+        <main class="prod" id="medi">
+            <div class="prod-cima">
+                <div>
+                    <h2>A mostrar 20 de 10.234 produtos.</h2>
+                </div>
+                <div class="ordenar">
+                    <select name="ordenar" id="ordenar">
+                        <option value="Menor">Menor Preço</option>
+                        <option value="Médio">Médio Preço</option>
+                        <option value="Maior">Maior Preço</option>
+                    </select>
+                </div>
+            </div>
+            <div class="prod-card">
+                <div class="item">
+                    <div class="pro">
+                        <img src="../assets/img/medi/para.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <h3>Paracetamol 500mg (10 comp...)</h3>
+                        <p>Medicamentos</p>
+                        <span>1.200Kz</span><del>1.990Kz</del>
+                        <p>Melhor preço: Farmácia Vida+</p>
+                        <a href="#">Comparar Preço</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="pro">
+                        <img src="../assets/img/medi/amoxa.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <h3>Amoxacilina 500mg (10 comp...)</h3>
+                        <p>Medicamentos</p>
+                        <span>3.400Kz</span><del>4.000Kz</del>
+                        <p>Melhor preço: São Jorge</p>
+                        <a href="#">Comparar Preço</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="pro">
+                        <img src="../assets/img/medi/diclo.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <h3>Diclofinaque 750mg (12 comp...)</h3>
+                        <p>Medicamentos</p>
+                        <span>2.100Kz</span><del>3.000Kz</del>
+                        <p>Melhor preço: Na goiaba</p>
+                        <a href="#">Comparar Preço</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="pro">
+                        <img src="../assets/img/medi/dipi.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <h3>Dipirona 2000mg (8 comp...)</h3>
+                        <p>Medicamentos</p>
+                        <span>2.900Kz</span><del>3.590Kz</del>
+                        <p>Melhor preço: Lima</p>
+                        <a href="#">Comparar Preço</a>
+                    </div>
+                </div>
+            </div>
+            <div class="prod-card">
+                <div class="item">
+                    <div class="pro">
+                        <img src="../assets/img/medi/para.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <h3>Paracetamol 500mg (10 comp...)</h3>
+                        <p>Medicamentos</p>
+                        <span>1.200Kz</span><del>1.990Kz</del>
+                        <p>Melhor preço: Farmácia Vida+</p>
+                        <a href="#">Comparar Preço</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="pro">
+                        <img src="../assets/img/medi/amoxa.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <h3>Amoxacilina 500mg (10 comp...)</h3>
+                        <p>Medicamentos</p>
+                        <span>3.400Kz</span><del>4.000Kz</del>
+                        <p>Melhor preço: São Jorge</p>
+                        <a href="#">Comparar Preço</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="pro">
+                        <img src="../assets/img/medi/diclo.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <h3>Diclofinaque 750mg (12 comp...)</h3>
+                        <p>Medicamentos</p>
+                        <span>2.100Kz</span><del>3.000Kz</del>
+                        <p>Melhor preço: Na goiaba</p>
+                        <a href="#">Comparar Preço</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="pro">
+                        <img src="../assets/img/medi/dipi.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <h3>Dipirona 2000mg (8 comp...)</h3>
+                        <p>Medicamentos</p>
+                        <span>2.900Kz</span><del>3.590Kz</del>
+                        <p>Melhor preço: Lima</p>
+                        <a href="#">Comparar Preço</a>
+                    </div>
+                </div>
+            </div>
+            <div class="prod-card">
+                <div class="item">
+                    <div class="pro">
+                        <img src="../assets/img/medi/para.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <h3>Paracetamol 500mg (10 comp...)</h3>
+                        <p>Medicamentos</p>
+                        <span>1.200Kz</span><del>1.990Kz</del>
+                        <p>Melhor preço: Farmácia Vida+</p>
+                        <a href="#">Comparar Preço</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="pro">
+                        <img src="../assets/img/medi/amoxa.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <h3>Amoxacilina 500mg (10 comp...)</h3>
+                        <p>Medicamentos</p>
+                        <span>3.400Kz</span><del>4.000Kz</del>
+                        <p>Melhor preço: São Jorge</p>
+                        <a href="#">Comparar Preço</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="pro">
+                        <img src="../assets/img/medi/diclo.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <h3>Diclofinaque 750mg (12 comp...)</h3>
+                        <p>Medicamentos</p>
+                        <span>2.100Kz</span><del>3.000Kz</del>
+                        <p>Melhor preço: Na goiaba</p>
+                        <a href="#">Comparar Preço</a>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="pro">
+                        <img src="../assets/img/medi/dipi.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <h3>Dipirona 2000mg (8 comp...)</h3>
+                        <p>Medicamentos</p>
+                        <span>2.900Kz</span><del>3.590Kz</del>
+                        <p>Melhor preço: Lima</p>
+                        <a href="#">Comparar Preço</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="simbolo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 262 52" width="262" height="52"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1FBF84"/><stop offset="1" stop-color="#0B5D49"/></linearGradient></defs><g transform="translate(2 4) scale(.9)"><path d="M18 2h12a4 4 0 0 1 4 4v10h10a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H34v10a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V32H4a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h10V6a4 4 0 0 1 4-4z" fill="url(#g)"/><path d="M14 30c6-1 8-6 12-12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></g><text x="52" y="26" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#FFFFFF">PharmaCompare</text><text x="53" y="42" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="10" fill="#CDE8DD">Mais saúde, menos gastos</text></svg>
+        </div>
+        <div class="mais-foot">
+            <a href="#">Sobre nós</a>
+            <a href="#">Termos de uso</a>
+            <a href="#">Politíca de privacidade</a>
+            <a href="#">Ajuda</a>
+            <a href="#">Contacto</a>
+        </div>
+        <div class="links-info">
+            <div>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.6-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.5V21z"/></g></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.3 6.7v.01"/></g></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z" fill="currentColor"/></g></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="currentColor"><rect x="3" y="9" width="3.5" height="12"/><circle cx="4.75" cy="4.9" r="2"/><path d="M10 9h3.3v1.7c.6-1.1 1.9-2 3.7-2 3.3 0 4 2.1 4 5V21h-3.5v-6c0-1.5-.1-2.9-1.9-2.9S13.5 13.3 13.5 15v6H10z"/></g></svg>
+                </a>
+            </div>
+            <span>&copy;PharmaCompare. Todos os direitos reservados.</span>
+        </div>
+    </footer>
+    <script src="../js/app.js"></script>
+</body>
+<link rel="stylesheet" href="../css/medicamentos.css">
+</html>

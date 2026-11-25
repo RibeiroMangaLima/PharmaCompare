@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*-- NAVEGAÇÃO --*/
+        .navegacao{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 1rem;
+            padding: 2rem 6rem 0 6rem;
+        }
+        .navegacao a{
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.9em;
+        }
+        .navegacao p{
+            color: #000;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        /*-- MAIN --*/
+        
+        main{
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 2rem;
+            padding: 2rem 6rem;
+        }
+        /*-- ASIDE --*/
+        .sidebar{
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: .5rem;
+        }
+        .sidebar .perfil{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: .5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .sidebar .perfil span{
+            background-color: var(--primaria-color);
+            color: var(--background-color);
+            font-weight: bold;
+            border-radius: 50%;
+            padding: .8rem;
+        }
+        .sidebar .configuracoes{
+            display: flex;
+            flex-direction: column;
+            gap: .4rem;
+            margin-top: .5rem;
+        }
+        .sidebar .configuracoes button{
+            background: transparent;
+            border: none;
+            border-radius: .2rem;
+            text-align: start;
+            font-weight: bold;
+            padding: .5rem;
+            transition: .2s;
+        }
+        .sidebar .configuracoes button:hover{
+            background-color: var(--primaria-claro);
+        }
+        .sidebar .configuracoes #terminar{
+            color: #f00;
+            padding-top: .5rem;
+            border-top: 2px solid var(--border-color);
+        }
+        .sidebar .configuracoes #terminar:hover{
+            background-color: rgb(255, 162, 162);
+        }
+        /*-- CONTA - INFO --*/
+        .conta-info{
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+        }
+        .conta-info .nome{
+            display: flex;
+            gap: .5rem;
+            flex-direction: column;
+        }
+        .conta-info .info-rapida{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        .conta-info .info-rapida .item{
+            border: 2px solid var(--border-color);
+            border-radius: .5rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .conta-info .info-rapida .item h3{
+            color: var(--primaria-preto);
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        .conta-info .info-rapida .item .cima{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .pedidos-recentes{
+            padding: 1rem 0 0 0;
+        }
+        .pedidos-recentes h2{
+            font-size: 1.2em;
+            margin-bottom: .5rem;
+        }
+        .pedidos-recentes table{
+            width: 100%;
+            border: 2px solid var(--border-color);
+            border-collapse: collapse;
+        }
+        table th{
+            background-color: var(--border-color);
+        }
+        table td{
+            color: var(--texto-color);
+            font-size: .9em;
+        }
+        table td,table th{
+            padding: .4rem;
+        }
+        table .preto{
+            color: #000;
+            font-weight: bold;
+        }
+        table .entrega{
+            background-color: var(--primaria-color);
+            color: var(--primaria-preto);
+            text-align: center;
+            border-radius: .5rem;
+            font-weight: bold;
+        }
+        table .caminho{
+            background-color: rgb(254, 215, 117);
+            color: rgb(100, 76, 5);
+        }
+        table .preco{
+            color: var(--primaria-preto);
+            font-weight: bold;
+        }
+        .dados form{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            border: 2px solid var(--border-color);
+            border-radius: .5rem;
+            padding: 2rem;
+            gap: 1rem;
+        }
+        .dados label{
+            font-weight: bold;
+            font-size: .9em;
+        }
+        .dados form input{
+            width: 30vw;
+            padding: .5rem;
+        }
+        .dados form button{
+            background-color: var(--primaria-preto);
+            color: var(--background-color);
+            font-weight: bold;
+            width: 40%;
+            padding: .6rem;
+            border: none;
+            border-radius: .4rem;
+            transition: .2s;
+        }
+        .dados form button:hover{
+            background-color: var(--primaria-color);
+        }
+        
+        /*-- FAVORITOS --*/
+        .favoritos{
+            scroll-margin-top: 100px;
+        }
+        .prod-cima{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .prod-cima a{
+            display: inline-block;
+            padding: 0.5rem 1rem ;
+            border-radius: 0.6rem;
+            text-decoration: none;
+            background-color:#fff;
+            color: #000;
+            border: 0.01rem solid #000;
+        }
+        .prod-card{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem 2rem;
+        }
+        .prod-card .item{
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 0.2rem #ccc;
+            margin: 2rem 0 0 0;
+        }
+        .item .pro img{
+            width: 100%;
+            height: 20vh;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 0.5rem #ccc;
+        }
+        .item .pro{
+            padding: 1rem;
+        }
+        .item .info{
+            padding: 1rem;
+        }
+        .item .info p{
+            font-size: 0.8rem;
+            margin: 0.5rem 0;
+        }
+        .item .info span{
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #0c685f;
+        }
+        del{
+            padding: 0 1rem;
+            font-size: 0.8rem;
+        }
+        .item .info a{
+            width: 100%;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9em;
+            background-color: var(--primaria-preto);
+            color: #fff;
+            border: none;
+            border-radius: 0.4rem;
+            text-align: center;
+        }
+        .item .info a:hover{
+            background-color: var(--primaria-color);
+        }
+
+        @media (max-width: 768px) {
+            /*-- NAVEGAÇÃO --*/
+            .navegacao{
+                padding: 1rem;
+            }
+
+            /*-- MAIN --*/
+            main{
+                padding: 2rem 1rem;
+            }
+
+            /*-- ASIDE --*/
+            aside{display: none;}
+
+            /*-- CONTA - INFO --*/
+            .conta-info .info-rapida{
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            table{
+                border: none;
+            }
+            table th{display: none;}
+            table tr{
+                border: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="cabeçalho">
+        <!-- Simbolo -->
+         <div class="cab">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 262 52" width="262" height="52"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1FBF84"/><stop offset="1" stop-color="#0B5D49"/></linearGradient></defs><g transform="translate(2 4) scale(.9)"><path d="M18 2h12a4 4 0 0 1 4 4v10h10a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H34v10a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V32H4a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h10V6a4 4 0 0 1 4-4z" fill="url(#g)"/><path d="M14 30c6-1 8-6 12-12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></g><text x="52" y="26" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#0B5D49">PharmaCompare</text><text x="53" y="42" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="10" fill="#4B5563">Mais saúde, menos gastos</text></svg>
+         </div>
+        <!-- Botões para abrir o menu -->
+        
+        <button class="btn" id="btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="menu-tel">
+            
+            <!-- Botão fechar o menu -->
+            <button class="btnclose">Fecha <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg></button>
+
+            <!-- NavBar -->
+            <nav class="links">
+                <a href="index.html">Início</a>
+                <a href="medicamentos.html">Produtos</a>
+                <a href="farmacias.html">Farmácias</a>
+                <a href="ofertas.html">Ofertas</a>
+                <a href="saude.html">Saúde</a>
+                <a href="ajuda.html">Ajuda</a>
+            </nav>
+
+            <!-- Icones -->
+            <div class="icones">
+                <button class="ico-pesq" id="ico-pesq">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx='11' cy='11' r='7'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>
+                </button>
+                <a href="conta.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d='M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z'/></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>
+                </a>
+                <a href="registrar.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/><circle cx='12' cy='7' r='4'/></svg>
+                </a>
+                <a href="#" class="entrar">Entrar/Registrar</a>
+            </div>
+        </div>
+    </header>
+    <div class="navegacao">
+        <a href="index.html">Ínicio</a>
+        <span>/</span>
+        <p>Minha Conta</p>
+    </div>
+    <main>
+        <aside>
+            <div class="sidebar">    
+                <div class="perfil">
+                    <span>RL</span>
+                    <div>      
+                        <h2>Ribeiro Lima</h2>
+                        <p>ribeio@gmail.com</p>
+                    </div>
+                </div>
+                <div class="configuracoes">
+                    <button id="perfil">Perfil</button>
+                    <button id="pedidos">Os meus pedidos</button>
+                    <button id="favoritos">Os meus favoritos</button>
+                    <button id="Alerta">Alerta de preços</button>
+                    <button id="endereco">Endereço</button>
+                    <button id="pagamentos">Pagamentos</button>
+                    <button id="segurnaca">Segurança</button>
+                    <button id="terminar">Terminar sessão</button>
+                </div>
+            </div>
+        </aside>
+        <section class="conta-info">
+            <div class="nome">
+                <h2>Olá, Ribeiro !</h2>
+                <p>Vejá os seus pedidos, favoritos e quanto já poupou.</p>
+            </div>
+            <div class="info-rapida">
+                <div class="item">
+                    <div class="cima">
+                        <p>Pedidos</p>
+                        <span>1</span>
+                    </div>
+                    <h3>12</h3>
+                </div>
+                <div class="item">
+                    <div class="cima">
+                        <p>Poupança total</p>
+                        <span>2</span>
+                    </div>
+                    <h3>18.400 Kz</h3>
+                </div>
+                <div class="item">
+                    <div class="cima">
+                        <p>Alertas ativos</p>
+                        <span>3</span>
+                    </div>
+                    <h3>5</h3>
+                </div>
+                <div class="item">
+                    <div class="cima">
+                        <p>Favoritos</p>
+                        <span>4</span>
+                    </div>
+                    <h3>9</h3>
+                </div>
+            </div>
+            <div class="pedidos-recentes">
+                <h2>Pedidos recentes</h2>
+                <table border="1">
+                    <tr>
+                        <th>PEDIDO</th>
+                        <th>DATA</th>
+                        <th>FARMÁCIA</th>
+                        <th>TOTAL</th>
+                        <th>ESTADO</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td class="preto">#PC-30475</td>
+                        <td>12 Out 2026</td>
+                        <td>Farmácia Vida+</td>
+                        <td class="preco">9.450 Kz</td>
+                        <td class="entrega">Entregue</td>
+                        <td class="detalhes">Ver detalhes</td>
+                    </tr>
+                    <tr>
+                        <td class="preto">#PC-84619</td>
+                        <td>03 Out 2026</td>
+                        <td>Maianga Saúde</td>
+                        <td class="preco">4.200 Kz</td>
+                        <td class="entrega caminho">A caminho</td>
+                        <td class="detalhes">Ver detalhes</td>
+                    </tr>
+                    <tr>
+                        <td class="preto">#PC-27429</td>
+                        <td>21 Set 2026</td>
+                        <td>Kilamba Central</td>
+                        <td class="preco">2.850 Kz</td>
+                        <td  class="entrega">Entregue</td>
+                        <td class="detalhes">Ver detalhes</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="dados">
+                <form action="">
+                    <div class="cada">
+                        <label for="nome">Nome completo</label><br>
+                        <input type="text" id="nome" placeholder="Ribeiro Lima" required>
+                    </div>
+                    <div class="cada">
+                        <label for="numero">Telefone</label><br>
+                        <input type="text" id="numero" placeholder="+244 ___ ___ ___">
+                    </div>
+                    <div class="cada">
+                        <label for="email">Email</label><br>
+                        <input type="email" id="email" placeholder="ribeiro@email.com" required>
+                    </div>
+                    <div class="cada">
+                        <label for="zona">Zona</label><br>
+                        <input type="text" id="zona" placeholder="Luanda / Talatona" required>
+                    </div>
+                    <button type="submit">Guardar alteração</button>
+                </form>
+            </div>
+            <div class="favoritos">
+                <div class="prod-cima">
+                    <div>
+                        <h2>Favoritos</h2>
+                    </div>
+                    <div>
+                        <a href="#">Ver mais</a>
+                    </div>
+                </div>
+                <div class="prod-card">
+                    <div class="item">
+                        <div class="pro">
+                            <img src="../assets/img/medi/para.jpg" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Paracetamol 500mg (10 comp...)</h3>
+                            <p>Medicamentos</p>
+                            <span>1.200Kz</span><del>1.990Kz</del>
+                            <p>Melhor preço: Farmácia Vida+</p>
+                            <a href="#">Comparar Preço</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="pro">
+                            <img src="../assets/img/medi/amoxa.jpg" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Amoxacilina 500mg (10 comp...)</h3>
+                            <p>Medicamentos</p>
+                            <span>3.400Kz</span><del>4.000Kz</del>
+                            <p>Melhor preço: São Jorge</p>
+                            <a href="#">Comparar Preço</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="pro">
+                            <img src="../assets/img/medi/diclo.jpg" alt="">
+                        </div>
+                        <div class="info">
+                            <h3>Diclofinaque 750mg (12 comp...)</h3>
+                            <p>Medicamentos</p>
+                            <span>2.100Kz</span><del>3.000Kz</del>
+                            <p>Melhor preço: Na goiaba</p>
+                            <a href="#">Comparar Preço</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="simbolo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 262 52" width="262" height="52"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1FBF84"/><stop offset="1" stop-color="#0B5D49"/></linearGradient></defs><g transform="translate(2 4) scale(.9)"><path d="M18 2h12a4 4 0 0 1 4 4v10h10a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H34v10a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V32H4a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h10V6a4 4 0 0 1 4-4z" fill="url(#g)"/><path d="M14 30c6-1 8-6 12-12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></g><text x="52" y="26" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#FFFFFF">PharmaCompare</text><text x="53" y="42" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="10" fill="#CDE8DD">Mais saúde, menos gastos</text></svg>
+        </div>
+        <div class="mais-foot">
+            <a href="#">Sobre nós</a>
+            <a href="#">Termos de uso</a>
+            <a href="#">Politíca de privacidade</a>
+            <a href="#">Ajuda</a>
+            <a href="#">Contacto</a>
+        </div>
+        <div class="links-info">
+            <div>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.6-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.5V21z"/></g></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.3 6.7v.01"/></g></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z" fill="currentColor"/></g></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="currentColor"><rect x="3" y="9" width="3.5" height="12"/><circle cx="4.75" cy="4.9" r="2"/><path d="M10 9h3.3v1.7c.6-1.1 1.9-2 3.7-2 3.3 0 4 2.1 4 5V21h-3.5v-6c0-1.5-.1-2.9-1.9-2.9S13.5 13.3 13.5 15v6H10z"/></g></svg>
+                </a>
+            </div>
+            <span>&copy;PharmaCompare. Todos os direitos reservados.</span>
+        </div>
+    </footer>
+    <script src="../js/app.js"></script>
+</body>
+<link rel="stylesheet" href="../css/comum.css">
+</html>

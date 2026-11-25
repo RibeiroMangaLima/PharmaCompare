@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: var(--border-color);
+        }
+        /*-- MAIN --*/
+        main{
+            display: grid;
+            grid-template-columns: 1fr 1.25fr;
+        }
+
+        /*-- INFORMAÇÃO --*/
+        .informa{
+            background-color: var(--primaria-preto);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 6rem 4rem;
+            height: 80vh;
+        }
+        .informa .info{
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+        }
+        .informa .info h2{
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--background-color);
+        }
+        .informa .info h2 span{
+            color: var(--primaria-color);
+        }
+        .informa p{
+            color: var(--background-color);
+        }
+        .informa ul{
+            list-style: none;
+        }
+        .informa ul li{
+            margin-bottom: 1rem;
+            color: var(--background-color);
+            font-size: .9em;
+        }
+        .informa ul li::before{
+            content: "#  ";
+        }
+        /*-- LOGIN --*/
+        .login{
+            background-color: var(--backgroun-dcolor);
+            display: flex;
+            flex-direction: column;
+            padding: 6rem 6rem ;
+            gap: 3rem;
+        }
+        .login form{
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .login form h2{
+            font-size: 2.5rem;
+        }
+        .login form input{
+            width: 100%;
+            padding: .6rem;
+            border-radius: .4rem;
+            border: 2px solid var(--border-color);
+        }    
+        form button{
+            padding: .6rem;
+            border-radius: .4rem;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            background-color: var(--primaria-preto);
+            color: var(--background-color);
+            border: 2px solid var(--primaria-preto);
+        }
+        .ou{
+            grid-column: 1/span 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+        }
+        .ou span{
+            cursor: pointer;
+            background-color: var(--border-color);
+            height: 3px;
+            width: 50%;
+        }
+        .com {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+            gap: 1rem;
+        }
+        .com a{
+            text-decoration: none;
+            display: inline-block;
+            padding: .6rem;
+            border-radius: .4rem;
+            font-size: .9em;
+            font-weight: bold;
+            text-align: center;
+            color: #000;
+            border: 2px solid var(--border-color);
+        }
+        .com a:active{
+            scale: 1.1;
+        }
+        .lembrar{
+            text-align: end;
+        }
+        .lembrar a{
+            color: var(--primaria-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .criar-conta{
+            text-align: center;
+        }
+        .criar-conta a{
+            text-decoration: none;
+            color: var(--primaria-color);
+            font-weight: bold;
+        }
+        @media (max-width: 768px ){
+            /*-- MAIN --*/
+            main{
+                display: block;
+            }
+
+            /*-- INFORMA --*/
+            .informa{display: none; order: 2;}
+            
+            /*-- LOGIN --*/
+            .login{
+                order: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                padding: 2rem 1rem;
+                width: 100%;
+            }
+            .login form{
+                width: 100%;
+            }
+            .login form input, button{
+                width: 100%;
+            }
+            .login .ou span{
+                width: 70%;
+            }
+            .criar-conta{
+                margin-top: 10rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="cabeçalho">
+        <!-- Simbolo -->
+         <div class="cab">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 262 52" width="262" height="52"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1FBF84"/><stop offset="1" stop-color="#0B5D49"/></linearGradient></defs><g transform="translate(2 4) scale(.9)"><path d="M18 2h12a4 4 0 0 1 4 4v10h10a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H34v10a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V32H4a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h10V6a4 4 0 0 1 4-4z" fill="url(#g)"/><path d="M14 30c6-1 8-6 12-12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></g><text x="52" y="26" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#0B5D49">PharmaCompare</text><text x="53" y="42" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="10" fill="#4B5563">Mais saúde, menos gastos</text></svg>
+         </div>
+        <!-- Botões para abrir o menu -->
+        
+        <button class="btn" id="btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="menu-tel">
+            
+            <!-- Botão fechar o menu -->
+            <button class="btnclose">Fecha <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg></button>
+
+            <!-- NavBar -->
+            <nav class="links">
+                <a href="index.html">Início</a>
+                <a href="medicamentos.html">Produtos</a>
+                <a href="farmacias.html">Farmácias</a>
+                <a href="ofertas.html">Ofertas</a>
+                <a href="saude.html">Saúde</a>
+                <a href="ajuda.html">Ajuda</a>
+            </nav>
+
+            <!-- Icones -->
+            <div class="icones">
+                <button class="ico-pesq" id="ico-pesq">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx='11' cy='11' r='7'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>
+                </button>
+                <a href="conta.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d='M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z'/></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>
+                </a>
+                <a href="registrar.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/><circle cx='12' cy='7' r='4'/></svg>
+                </a>
+                <a href="#" class="entrar">Entrar/Registrar</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="informa">
+            <div class="info">
+                <h2>Crie a sua conta e <span>economize</span> já.</h2>
+                <p>É grátis e leva menos de um minuto.</p>
+            </div>
+            <ul>
+                <li>Compare preços em várias farmácias</li>
+                <li>Crie alertas de preços e ofertas</li>
+                <li>Guarde favoritos e acompanhe pedidos</li>
+                <li>Pague com Multicaixa Express</li>
+            </ul>
+        </section>
+        <section class="login">
+            <form action="pharma.html">
+                <h2>Login</h2>
+                <div>
+                    <label for="email/tel" class="l">Email</label><br>
+                    <input type="tel email" id="email/tel" name="email/tel" class="i" required placeholder="nome@email.com">
+                </div>
+                <div>
+                    <label for="palavra.passe" class="l">Palavra-passe</label><br>
+                    <input type="password" id="palavra-passe" name="palavra-passe" class="i" required placeholder="********" maxlength="7">
+                </div>
+                <div class="lembrar">
+                    <a href="">Esquece a Senha?</a>
+                </div>
+                <button input="submit" href="pharma.html">Entrar</button>
+            </form>
+            <div class="ou">
+                <span></span>
+                <p class="p">Ou</p>
+                <span></span>
+            </div>
+            <div class="com">
+                <a href="#">Google</a>
+                <a href="#">Facebook</a>
+                <a href="#">App Store</a>
+            </div>
+            <div class="criar-conta">
+                <p>Não tenho uma conta?<a href="signup.html">Criar Conta</a></p>
+            </div>
+        </section> 
+    </main>
+    <footer class="footer">
+        <div class="simbolo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 262 52" width="262" height="52"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1FBF84"/><stop offset="1" stop-color="#0B5D49"/></linearGradient></defs><g transform="translate(2 4) scale(.9)"><path d="M18 2h12a4 4 0 0 1 4 4v10h10a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H34v10a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V32H4a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h10V6a4 4 0 0 1 4-4z" fill="url(#g)"/><path d="M14 30c6-1 8-6 12-12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></g><text x="52" y="26" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#FFFFFF">PharmaCompare</text><text x="53" y="42" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="10" fill="#CDE8DD">Mais saúde, menos gastos</text></svg>
+        </div>
+        <div class="mais-foot">
+            <a href="#">Sobre nós</a>
+            <a href="#">Termos de uso</a>
+            <a href="#">Politíca de privacidade</a>
+            <a href="#">Ajuda</a>
+            <a href="#">Contacto</a>
+        </div>
+        <div class="links-info">
+            <div>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.6-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.5V21z"/></g></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.3 6.7v.01"/></g></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z" fill="currentColor"/></g></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="currentColor"><rect x="3" y="9" width="3.5" height="12"/><circle cx="4.75" cy="4.9" r="2"/><path d="M10 9h3.3v1.7c.6-1.1 1.9-2 3.7-2 3.3 0 4 2.1 4 5V21h-3.5v-6c0-1.5-.1-2.9-1.9-2.9S13.5 13.3 13.5 15v6H10z"/></g></svg>
+                </a>
+            </div>
+            <span>&copy;PharmaCompare. Todos os direitos reservados.</span>
+        </div>
+    </footer>
+    <script src="../js/app.js"></script>
+</body>
+<link rel="stylesheet" href="../css/comum.css">
+</html>

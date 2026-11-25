@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farmácias parceiras — ComparaFarma</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+    /*-- NAVEGAÇÃO --*/
+    .navegacao{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+        padding: 2rem 6rem 0 6rem;
+    }
+    .navegacao a{
+        text-decoration: none;
+        color: var(--text-color);
+        font-size: 0.9em;
+    }
+    .navegacao p{
+        color: #000;
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+
+    /*-- PAGE-HERO --*/
+
+    .page-hero{
+        padding: 2rem 6rem 0 6rem;
+    }
+
+    /*-- FILTRAR --*/
+    .filtrar{
+        padding: 2rem 6rem 0 6rem;
+    }
+    .filtrar form{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+    .filtrar select{
+        border: 2px solid #e5e7eb;
+    }
+    #municipio{
+        width: 80%;
+        padding: .5rem 0.4rem;
+    }
+    #ordenar{
+        width: 10%;
+        padding: .5rem 0.4rem;
+    }
+    #procurar{
+        width: 10%;
+        padding: .6rem 0.4rem;
+        background-color: var(--primaria-preto);
+        color: var(--background-color);
+        font-weight: bold;
+        border: none;
+        border-radius: .4rem;
+        transition: 0.3s;
+    }
+    #procurar:hover{
+        background-color: var(--primaria-color);
+    }
+
+    /*-- CONTAINER-INFO --*/
+
+    
+    .filtros {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding: 2rem 6rem 0 6rem;
+    }
+    .filtro-chip {
+        background-color: var(--background-color);
+        color: #000;
+        font-weight: bold;
+        padding: .4rem;
+        border: 1px solid #000;
+        border-radius: 1rem;
+    }
+    .filtro-chip:focus {
+        background: var(--primaria-color);
+        color: var(--background-color);
+        border: 2px solid var(--primaria-color);
+    }
+
+    /*-- FARMÁCIAS --*/
+
+    .farmacias {
+        display: grid;
+        grid-template-columns: 400px 2fr;
+        gap: 2rem;
+        padding: 2rem 6rem;
+    }
+    .farm-card {
+        background: var(--background-color);
+        border: 2px solid var(--border-color);
+        border-radius: .6rem;
+        box-shadow: -5px 0 20px rgba(0 , 0, 0, .15);
+        transition: transform 0.15s, box-shadow 0.15s;
+        margin-bottom: 1rem;
+    }
+    .farm-card:hover{
+        transform: translateY(-3px);
+        transform: scale(1.05);
+        box-shadow: -5px 0 20px solid #ccc;
+    }
+    .farm-top {
+        display: flex;
+        gap: 14px;
+        padding: 20px 20px 14px;
+    }
+    .farm-logo {
+        width: 54px;
+        height: 54px;
+        border-radius: 12px;
+        background: var(--primaria-claro);
+        color: var(--primaria-preto);
+        font-weight: 700;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .farm-info h3 {
+        font-size: 1.08rem;
+        margin-bottom: 4px;
+    }
+    .farm-meta {
+        font-size: 0.82rem;
+        color: var(--texto-mutado);
+    }
+
+    .estrelas{
+        color: var(--amber-500);
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+    }
+
+    .farm-stats {
+        display: flex;
+        border-top: 1px solid var(--texto-mutado);
+        background: #faf0e6;
+    }
+    .farm-stat {
+        flex: 1;
+        padding: 12px 14px;
+        text-align: center;
+        border-right: 1px solid var(--texto-mutado);
+    }
+    .farm-stat:last-child { border-right: none; }
+    .farm-stat .num {
+        font-family: var(--font-mono);
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--jade-900);
+        display: block;
+    }
+    .farm-stat .lbl {
+        font-size: 0.68rem;
+        color: var(--ink-soft);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+
+    .farm-actions {
+        padding: 14px 20px 20px;
+        display: flex;
+        gap: 10px;
+    }
+    .farm-actions .btn{
+        flex: 1;
+        justify-content: center;
+        padding: 5px 10px;
+        font-size: 0.88rem;
+        text-decoration: none;
+        border: 2px solid var(--primaria-preto);
+        border-radius: 1rem;
+        text-align: center;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .btn:hover{
+        background-color: var(--primaria-color);
+    }
+    .btn-ghost{color: var(--primaria-preto);}
+    .btn-primary{
+        color: var(--background-color);
+        background-color: var(--primaria-preto);
+    }
+    .aberto-agora {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.76rem;
+        color: var(--primaria-preto);
+        font-weight: 600;
+    }
+    .aberto-agora::before {
+        content: "";
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        background: var(--jade-500);
+    }
+
+    #mapa{
+        width: 100%;
+        height: 600px;
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+        /*NAVEGAÇÃO*/
+        .navegacao{
+            padding: 1rem;
+        }
+
+        /*-- PAGE - HERO --*/
+        .page-hero{
+            padding: 1rem;
+        }
+
+        /*-- FILTRAR --*/
+        .filtrar{
+            padding: 1rem;
+        }
+        .filtrar form{
+            flex-wrap: wrap;
+        }
+        .filtrar form #municipio{
+            width: 100%;
+        }
+        .filtrar form #ordenar, .filtrar form #procurar{
+            width: 46%;
+        }
+
+        /*-- FILTROS --*/
+        .filtros{
+            padding: 1rem;
+            display: flex;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+        }
+        .filtros::-webkit-scrollbar{
+            display: none;
+        }
+        .filtros button{
+            flex: 0 0 40%;
+        }
+
+        /*-- FARMÁCIA --*/
+        .farmacias{
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem;
+        }
+        .farmacias .direito{
+            order: 1;
+        }
+        .farmacias .esquerdo{
+            order: 2;
+        }
+    }
+</style>
+</head>
+<body>
+    <header class="cabeçalho">
+        <!-- Simbolo -->
+         <div class="cab">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 262 52" width="262" height="52"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1FBF84"/><stop offset="1" stop-color="#0B5D49"/></linearGradient></defs><g transform="translate(2 4) scale(.9)"><path d="M18 2h12a4 4 0 0 1 4 4v10h10a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H34v10a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V32H4a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h10V6a4 4 0 0 1 4-4z" fill="url(#g)"/><path d="M14 30c6-1 8-6 12-12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></g><text x="52" y="26" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#0B5D49">PharmaCompare</text><text x="53" y="42" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="10" fill="#4B5563">Mais saúde, menos gastos</text></svg>
+         </div>
+        <!-- Botões para abrir o menu -->
+        
+        <button class="btn" id="btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="menu-tel">
+            
+            <!-- Botão fechar o menu -->
+            <button class="btnclose">Fecha <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg></button>
+
+            <!-- NavBar -->
+            <nav class="links">
+                <a href="index.html">Início</a>
+                <a href="medicamentos.html">Produtos</a>
+                <a href="farmacias.html">Farmácias</a>
+                <a href="ofertas.html">Ofertas</a>
+                <a href="saude.html">Saúde</a>
+                <a href="ajuda.html">Ajuda</a>
+            </nav>
+
+            <!-- Icones -->
+            <div class="icones">
+                <button class="ico-pesq" id="ico-pesq">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx='11' cy='11' r='7'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>
+                </button>
+                <a href="conta.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d='M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z'/></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>
+                </a>
+                <a href="registrar.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/><circle cx='12' cy='7' r='4'/></svg>
+                </a>
+                <a href="#" class="entrar">Entrar/Registrar</a>
+            </div>
+        </div>
+    </header>
+    <div class="navegacao">
+        <a href="index.html">Ínicio</a>
+        <span>/</span>
+        <p>Farmácias</p>
+    </div>
+    <section class="page-hero">
+        <div class="container">
+            <h1>Farmácias perto de sí</h1>
+            <p class="lede">Encontre farmácias verificadas em Luanda e compare os preços de cada uma.</p>
+        </div>
+    </section>
+    <div class="filtrar">
+        <form action="">
+        <select name="municipio" id="municipio">
+            <option value="Talatona">Talatona / Luanda</option>
+            <option value="Maianga">Maianga / Luanda</option>
+            <option value="Kialamba">Kilamba / Luanda</option>
+            <option value="Alvalade">Alvalade / Luanda</option>
+            <option value="Viana">Viana / Luanda</option>
+            <option value="Benfica">Benfica / Luanda</option>
+        </select>
+        <select name="ordernar" id="ordenar">
+            <option value="">Até 10Km</option>
+            <option value="">Até 9Km</option>
+            <option value="">Até 7Km</option>
+            <option value="">Até 5Km</option>
+            <option value="">Até 3Km</option>
+            <option value="">Até 1Km</option>
+        </select>
+        <button id="procurar">Procurar</button>
+    </form>
+    </div>
+    <div class="filtros">
+        <button class="filtro-chip ativo">Todas</button>
+        <button class="filtro-chip">Abertas agora</button>
+        <button class="filtro-chip">24 horas</button>
+        <button class="filtro-chip">Multicaixa Express</button>
+        <button class="filtro-chip">Melhor avaliação</button>
+    </div>
+    <section class="farmacias">
+        <section class="esquerdo">
+                <article class="farm-card">
+                    <div class="farm-top">
+                        <div class="farm-logo">FV</div>
+                        <div class="farm-info">
+                            <h3>Farmácia Vida+</h3>
+                            <div class="estrelas">
+                                ★★★★★ <span>4.9</span>
+                            </div>
+                            <div class="farm-meta">Talatona, Luanda</div>
+                        </div>
+                    </div>
+                    <div class="farm-stats">
+                        <div class="farm-stat">
+                            <span class="num">25 min</span>
+                            <span class="lbl">Entrega</span>
+                        </div>
+                        <div class="farm-stat">
+                            <span class="num">1.240</span>
+                            <span class="lbl">Produtos</span>
+                        </div>
+                        <div class="farm-stat">
+                            <span class="num">3.8 km</span>
+                            <span class="lbl">Distância</span>
+                        </div>
+                    </div>
+                    <div class="farm-actions">
+                        <span class="aberto-agora">Aberta agora</span>
+                    </div>
+                    <div class="farm-actions" style="padding-top:0;">
+                        <a href="#" class="btn btn-ghost">Ver perfil</a>
+                        <a href="#" class="btn btn-primary">Ver produtos</a>
+                    </div>
+                </article>
+
+                <article class="farm-card">
+                    <div class="farm-top">
+                        <div class="farm-logo">SL</div>
+                        <div class="farm-info">
+                            <h3>Farmácia São Lucas</h3>
+                            <div class="estrelas">
+                                ★★★★☆ <span>4.6</span>
+                            </div>
+                            <div class="farm-meta">Maianga, Luanda</div>
+                        </div>
+                    </div>
+                    <div class="farm-stats">
+                        <div class="farm-stat">
+                            <span class="num">40 min</span>
+                            <span class="lbl">Entrega</span>
+                        </div>
+                        <div class="farm-stat">
+                            <span class="num">890</span>
+                            <span class="lbl">Produtos</span>
+                        </div>
+                        <div class="farm-stat">
+                            <span class="num">5.1 km</span>
+                            <span class="lbl">Distância</span>
+                        </div>
+                    </div>
+                    <div class="farm-actions">
+                        <span class="aberto-agora">Aberta agora</span>
+                    </div>
+                    <div class="farm-actions" style="padding-top:0;">
+                        <a href="#" class="btn btn-ghost">Ver perfil</a>
+                        <a href="#" class="btn btn-primary">Ver produtos</a>
+                    </div>
+                </article>
+
+                <article class="farm-card">
+                    <div class="farm-top">
+                        <div class="farm-logo">BE</div>
+                        <div class="farm-info">
+                            <h3>Farmácia Bem-Estar 24h</h3>
+                            <div class="estrelas">
+                                ★★★★★ <span>4.8</span>
+                            </div>
+                            <div class="farm-meta">Viana, Luanda</div>
+                        </div>
+                    </div>
+                    <div class="farm-stats">
+                        <div class="farm-stat">
+                            <span class="num">55 min</span>
+                            <span class="lbl">Entrega</span>
+                        </div>
+                        <div class="farm-stat">
+                            <span class="num">2.010</span>
+                            <span class="lbl">Produtos</span>
+                        </div>
+                        <div class="farm-stat">
+                            <span class="num">9.4 km</span>
+                            <span class="lbl">Distância</span>
+                        </div>
+                    </div>
+                    <div class="farm-actions">
+                        <span class="aberto-agora">Aberta agora · 24h</span>
+                    </div>
+                    <div class="farm-actions" style="padding-top:0;">
+                        <a href="#" class="btn btn-ghost">Ver perfil</a>
+                        <a href="#" class="btn btn-primary">Ver produtos</a>
+                    </div>
+                </article>
+
+                <article class="farm-card">
+                    <div class="farm-top">
+                        <div class="farm-logo">SL</div>
+                        <div class="farm-info">
+                            <h3>Farmácia São Lucas</h3>
+                            <div class="estrelas">
+                                ★★★★☆ <span>4.6</span>
+                            </div>
+                            <div class="farm-meta">Maianga, Luanda</div>
+                        </div>
+                    </div>
+                    <div class="farm-stats">
+                        <div class="farm-stat">
+                            <span class="num">40 min</span>
+                            <span class="lbl">Entrega</span>
+                        </div>
+                        <div class="farm-stat">
+                            <span class="num">890</span>
+                            <span class="lbl">Produtos</span>
+                        </div>
+                        <div class="farm-stat">
+                            <span class="num">5.1 km</span>
+                            <span class="lbl">Distância</span>
+                        </div>
+                    </div>
+                    <div class="farm-actions">
+                        <span class="aberto-agora">Aberta agora</span>
+                    </div>
+                    <div class="farm-actions" style="padding-top:0;">
+                        <a href="#" class="btn btn-ghost">Ver perfil</a>
+                        <a href="#" class="btn btn-primary">Ver produtos</a>
+                    </div>
+                </article>
+                
+                <article class="farm-card">
+                    <div class="farm-top">
+                        <div class="farm-logo">SL</div>
+                        <div class="farm-info">
+                            <h3>Farmácia São Lucas</h3>
+                            <div class="estrelas">
+                                ★★★★☆ <span>4.6</span>
+                            </div>
+                            <div class="farm-meta">Maianga, Luanda</div>
+                        </div>
+                    </div>
+                    <div class="farm-stats">
+                        <div class="farm-stat">
+                            <span class="num">40 min</span>
+                            <span class="lbl">Entrega</span>
+                        </div>
+                        <div class="farm-stat">
+                            <span class="num">890</span>
+                            <span class="lbl">Produtos</span>
+                        </div>
+                        <div class="farm-stat">
+                            <span class="num">5.1 km</span>
+                            <span class="lbl">Distância</span>
+                        </div>
+                    </div>
+                    <div class="farm-actions">
+                        <span class="aberto-agora">Aberta agora</span>
+                    </div>
+                    <div class="farm-actions" style="padding-top:0;">
+                        <a href="#" class="btn btn-ghost">Ver perfil</a>
+                        <a href="#" class="btn btn-primary">Ver produtos</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="direito">
+            <div id="mapa"></div>
+        </section>
+    </section>
+    <footer class="footer">
+        <div class="simbolo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 262 52" width="262" height="52"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1FBF84"/><stop offset="1" stop-color="#0B5D49"/></linearGradient></defs><g transform="translate(2 4) scale(.9)"><path d="M18 2h12a4 4 0 0 1 4 4v10h10a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H34v10a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V32H4a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h10V6a4 4 0 0 1 4-4z" fill="url(#g)"/><path d="M14 30c6-1 8-6 12-12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></g><text x="52" y="26" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="23" font-weight="700" fill="#FFFFFF">PharmaCompare</text><text x="53" y="42" font-family="Poppins, Montserrat, Segoe UI, Arial, sans-serif" font-size="10" fill="#CDE8DD">Mais saúde, menos gastos</text></svg>
+        </div>
+        <div class="mais-foot">
+            <a href="#">Sobre nós</a>
+            <a href="#">Termos de uso</a>
+            <a href="#">Politíca de privacidade</a>
+            <a href="#">Ajuda</a>
+            <a href="#">Contacto</a>
+        </div>
+        <div class="links-info">
+            <div>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="currentColor"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.6-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.3 0-3.9 1.4-3.9 4v2.2H8v3h2.5V21z"/></g></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.3 6.7v.01"/></g></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 5 3-5 3z" fill="currentColor"/></g></svg>
+                </a>
+                <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF"><g fill="currentColor"><rect x="3" y="9" width="3.5" height="12"/><circle cx="4.75" cy="4.9" r="2"/><path d="M10 9h3.3v1.7c.6-1.1 1.9-2 3.7-2 3.3 0 4 2.1 4 5V21h-3.5v-6c0-1.5-.1-2.9-1.9-2.9S13.5 13.3 13.5 15v6H10z"/></g></svg>
+                </a>
+            </div>
+            <span>&copy;PharmaCompare. Todos os direitos reservados.</span>
+        </div>
+    </footer>
+    <script src="../js/app.js"></script>
+</body>
+<link rel="stylesheet" href="../css/comum.css">
+</html>
